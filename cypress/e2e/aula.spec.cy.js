@@ -1,12 +1,21 @@
 describe('Aula de cyppess', () => {
     
-    it('Acessar pagina', () => {
+    it('Cenario realizar login', () => {
       
-        cy.visit('https://www.amazon.com/')
-        cy.get('#twotabsearchtextbox').type('Livro de Alquimia')
-        cy.get('#nav-search-submit-button').click()
-        cy.get('[data-asin="1686296770"] > :nth-child(1) > .s-widget-container > .s-card-container > :nth-child(1) > :nth-child(1) > .s-list-col-left > .sg-col-inner > .s-product-image-container > :nth-child(1) > .rush-component > .a-link-normal > .a-section > .s-image').should('have.text', 'O Livro de Ouro de Saint Germain: A Sagrada Alquimia do Eu Sou (Portuguese Edition)')
-    
+        cy.visit('https://www.saucedemo.com/')
+        cy.get('[data-test="username"]').type('standard_user')
+        cy.get('[data-test="password"]').type('secret_sauce')
+        cy.get('[data-test="login-button"]').click()
+        cy.get('.title').should("exist")
     })
 
-})    
+    it('Cenario realizar login', () => {
+      
+        cy.visit('https://www.saucedemo.com/')
+        cy.get('[data-test="username"]').type('standard_user')
+        cy.get('[data-test="password"]').type('secret_suce')
+        cy.get('[data-test="login-button"]').click()
+        cy.get('.title').should("exist")
+   
+    })
+})
