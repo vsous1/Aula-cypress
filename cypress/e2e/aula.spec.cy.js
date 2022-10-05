@@ -1,37 +1,37 @@
+import loc from '../support/locators'
+
 describe('Aula de cyppess', () => {
-    
-    it('Cenario realizar login', () => {
-      
-        cy.visit('https://www.saucedemo.com/')
-        cy.get('[data-test="username"]').type('standard_user')
-        cy.get('[data-test="password"]').type('secret_sauce')
-        cy.get('[data-test="login-button"]').click()
-        cy.get('.title').should("exist")
+   
+    beforeEach(() => {
+      cy.visit(loc.SITE)   
     })
 
     it('Cenario realizar login', () => {
-      
-        cy.visit('https://www.saucedemo.com/')
-        cy.get('[data-test="username"]').type('standard_user')
-        cy.get('[data-test="password"]').type('secret_suce')
-        cy.get('[data-test="login-button"]').click()
-        cy.get('.title').should("exist")
-   
-    })
-   
-    it('Cenario: login do usuário bloqueado', () => {
         
-        cy.get('[data-test="username"]').type('locked_out_user')    
-        cy.get('[data-test="password"]').type('secret_suce')
-        cy.get('[data-test="login-button"]').click()
-        cy.get('.title').should("exist")
+        cy.login(loc.USUARIO, loc.SENHA)
+        
+        cy.get(loc.TITULO).should('have.text', 'Products')
+    })
+
+    it('Cenario não realizar login', () => {
+        
+        Cy.login(loc.USUARIO, loc.SENHA_INVALIDA)
+
+        cy.get(loc.TITULO).should('not.exist')
+   
+    })
+   
+    it('Cenario: login do usuario bloqueado', () => {
+        
+        Cy.login(loc.USUARIO, loc.SENHA)
+
+        cy.get(loc.TITULO).should('not.exist')
 
     })
 
-    it('Cenario: login do usuário', () => {
-        cy.get('[data-test="username"]').type('locked_out_user')    
-        cy.get('[data-test="password"]').type('secret_suce')
-        cy.get('[data-test="login-button"]').click()
-        cy.get('.title').should("exist")    
+    it('Cenario: login do usuario bloqueado impedido', () => {
+        Cy.login(loc.USUARIO, loc.SENHA)
+
+        cy.get(loc.TITULO).should('have.text', 'Products')
     })
 })
